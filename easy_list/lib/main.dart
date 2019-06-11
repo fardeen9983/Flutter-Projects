@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
-import './pages/auth.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -41,8 +40,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => ProductsPage(_products, _addProduct, _deleteProduct),
-        "/admin": (context) => ProductsAdminPage(),
+        "/": (context) => ProductsPage(_products),
+        "/admin": (context) => ProductsAdminPage(_addProduct,_deleteProduct),
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> path = settings.name.split('/');
@@ -65,7 +64,7 @@ class _MyAppState extends State<MyApp> {
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute<bool>(
             builder: (BuildContext context) =>
-                ProductsPage(_products, _addProduct, _deleteProduct));
+                ProductsPage(_products));
       },
     );
   }

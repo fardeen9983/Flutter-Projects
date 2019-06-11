@@ -1,21 +1,42 @@
-import 'package:easy_list/pages/products_admin.dart';
 import 'package:flutter/material.dart';
 
-import '../product_manager.dart';
+import '../products.dart';
 
-class ProductsPage extends StatelessWidget {
+class ProductsPage extends StatefulWidget {
   final List<Map<String, dynamic>> _products;
-  final Function _addProduct, _deleteProduct;
 
-  ProductsPage(this._products, this._addProduct, this._deleteProduct);
+  ProductsPage(this._products);
+  @override
+  State<StatefulWidget> createState() {
+    return _ProductsPageState();
+  }
+}
 
+class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
+    bool acceptTerms = false;
     return Scaffold(
       appBar: AppBar(
         title: Text('EasyList'),
       ),
-      body: ProductManager(_products, _addProduct, _deleteProduct),
+      body: Column(
+        children: <Widget>[
+          SwitchListTile(
+            value: acceptTerms,
+            onChanged: (bool val) {
+              setState(() {
+                acceptTerms = val;
+              });
+            },
+            title: Text("Accept Terms"),
+          ),
+          Expanded(
+              child: Products(
+            widget._products,
+          )),
+        ],
+      ),
       drawer: Drawer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,8 +47,7 @@ class ProductsPage extends StatelessWidget {
             ),
             ListTile(
               title: Text("Managed Products"),
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, "/admin"),
+              onTap: () => Navigator.pushReplacementNamed(context, "/admin"),
             )
           ],
         ),
