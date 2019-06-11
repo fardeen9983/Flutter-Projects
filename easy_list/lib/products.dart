@@ -12,18 +12,24 @@ class Products extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Image.asset(products[index]["image"]),
-          Text(products[index]["title"]),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Text(
+              products[index]["title"],
+              style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold, fontFamily: "Oswald"),
+            ),
+          ),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
               FlatButton(
-                child: Text('Details'),
-                onPressed: () =>
-                    Navigator.pushNamed<bool>(context, "/product/$index")
-                    //     .then((bool val) {
-                    //   if (val) deleteProduct(index);
-                    // }),
-              )
+                  child: Text('Details'),
+                  onPressed: () =>
+                      Navigator.pushNamed<bool>(context, "/product/$index")
+                  //     .then((bool val) {
+                  //   if (val) deleteProduct(index);
+                  // }),
+                  )
             ],
           )
         ],
