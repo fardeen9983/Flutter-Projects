@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 import '../product_manager.dart';
 
 class ProductsPage extends StatelessWidget {
+  final List<Map<String, dynamic>> _products;
+  final Function _addProduct, _deleteProduct;
+
+  ProductsPage(this._products, this._addProduct, this._deleteProduct);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('EasyList'),
       ),
-      body: ProductManager(),
+      body: ProductManager(_products, _addProduct, _deleteProduct),
       drawer: Drawer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -21,8 +26,8 @@ class ProductsPage extends StatelessWidget {
             ),
             ListTile(
               title: Text("Managed Products"),
-              onTap: () => Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => ProductsAdminPage())),
+              onTap: () =>
+                  Navigator.pushReplacementNamed(context, "/admin"),
             )
           ],
         ),
