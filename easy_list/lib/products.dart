@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 
 import './pages/product.dart';
 
@@ -14,10 +15,39 @@ class Products extends StatelessWidget {
           Image.asset(products[index]["image"]),
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
-            child: Text(
-              products[index]["title"],
-              style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold, fontFamily: "Oswald"),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  products[index]["title"],
+                  style: TextStyle(
+                      fontSize: 26.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Oswald"),
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.5),
+                  child: Text(
+                    "\$ " + products[index]["price"].toString(),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      borderRadius: BorderRadius.circular(5.0)),
+                ),
+              ],
             ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.5),
+            child: Text("Union Square, San Fransisco"),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey, width: 1.0),
+                borderRadius: BorderRadius.circular(4.0)),
           ),
           ButtonBar(
             alignment: MainAxisAlignment.center,

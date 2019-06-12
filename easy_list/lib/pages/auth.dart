@@ -9,6 +9,12 @@ class AuthPage extends StatelessWidget {
         title: Text("Login"),
       ),
       body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/background.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.5), BlendMode.dstATop))),
         alignment: Alignment.center,
         child: RaisedButton(
           child: Text("LOGIN"),
