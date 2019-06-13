@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
 
-
 void main() {
   // debugPaintSizeEnabled = true;
   // debugPaintBaselinesEnabled = true;
@@ -39,9 +38,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       routes: {
         "/": (context) => ProductsPage(_products),
-        "/admin": (context) => ProductsAdminPage(_addProduct,_deleteProduct),
+        "/admin": (context) => ProductsAdminPage(_addProduct, _deleteProduct),
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> path = settings.name.split('/');
@@ -52,7 +52,10 @@ class _MyAppState extends State<MyApp> {
           final int index = int.parse(path[2]);
           return MaterialPageRoute<bool>(
               builder: (BuildContext context) => ProductPage(
-                  _products[index]["title"], _products[index]["image"]));
+                  _products[index]["title"],
+                  _products[index]["image"],
+                  _products[index]["price"].toString(),
+                  _products[index]["desc"]));
         }
         return null;
       },
@@ -63,8 +66,7 @@ class _MyAppState extends State<MyApp> {
           accentColor: Colors.deepPurple),
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute<bool>(
-            builder: (BuildContext context) =>
-                ProductsPage(_products));
+            builder: (BuildContext context) => ProductsPage(_products));
       },
     );
   }

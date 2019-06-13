@@ -1,6 +1,7 @@
+import 'package:easy_list/widgets/products/products.dart';
 import 'package:flutter/material.dart';
 
-import '../products.dart';
+
 
 class ProductsPage extends StatefulWidget {
   final List<Map<String, dynamic>> _products;
@@ -19,6 +20,13 @@ class _ProductsPageState extends State<ProductsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('EasyList'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: () {},
+          
+          ),SizedBox(width: 8.0,)
+        ],
       ),
       body: Column(
         children: <Widget>[
@@ -46,6 +54,7 @@ class _ProductsPageState extends State<ProductsPage> {
               title: Text("Choose"),
             ),
             ListTile(
+              leading: Icon(Icons.edit),
               title: Text("Managed Products"),
               onTap: () => Navigator.pushReplacementNamed(context, "/admin"),
             )
