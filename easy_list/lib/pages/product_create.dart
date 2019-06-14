@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 class ProductCreatePage extends StatefulWidget {
   final Function addProduct;
@@ -12,36 +13,37 @@ class ProductCreatePage extends StatefulWidget {
 }
 
 class _ProductCreateState extends State<ProductCreatePage> {
-  TextEditingController title, desc, price;
+  String title, desc, price;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
-    title = TextEditingController();
-    desc = TextEditingController();
-    price = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    title.dispose();
-    desc.dispose();
-    price.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final double deviceWith = MediaQuery.of(context).size.width;
+    final double width = deviceWith > 550.0 ? 500 : deviceWith * 0.95;
+    final double padding = deviceWith - width;
+
     return Container(
         margin: EdgeInsets.all(10.0),
-        child: SingleChildScrollView(
-          child: Column(
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: padding / 2),
             children: <Widget>[
               _buildTextFieldForm(),
               SizedBox(
                 height: 10.0,
               ),
               RaisedButton(
-                color: Theme.of(context).accentColor,
                 textColor: Colors.white,
                 child: Text("Create"),
                 onPressed: _createProduct,
@@ -54,18 +56,30 @@ class _ProductCreateState extends State<ProductCreatePage> {
   Widget _buildTextFieldForm() {
     return Column(
       children: <Widget>[
-        TextField(
+        TextFormField(
           decoration: InputDecoration(labelText: "Title"),
-          controller: title,
+          onSaved: (val) {
+            setState(() {
+              title = val;
+            });
+          },
         ),
-        TextField(
+        TextFormField(
           decoration: InputDecoration(labelText: "Description"),
-          controller: desc,
+          onSaved: (val) {
+            setState(() {
+              desc = val;
+            });
+          },
           maxLines: 6,
         ),
-        TextField(
+        TextFormField(
           decoration: InputDecoration(labelText: "Price"),
-          controller: price,
+          onSaved: (val) {
+            setState(() {
+              price = val;
+            });
+          },
           keyboardType: TextInputType.number,
         ),
       ],
@@ -73,9 +87,8 @@ class _ProductCreateState extends State<ProductCreatePage> {
   }
 
   void _createProduct() {
-    String title = this.title.text;
-    String desc = this.desc.text;
-    double price = double.parse(this.price.text);
+    _formKey.currentState.save();
+    double price = double.parse(this.price);
     widget.addProduct({
       'title': title,
       'desc': desc,

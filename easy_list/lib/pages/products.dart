@@ -1,8 +1,6 @@
 import 'package:easy_list/widgets/products/products.dart';
 import 'package:flutter/material.dart';
 
-
-
 class ProductsPage extends StatefulWidget {
   final List<Map<String, dynamic>> _products;
 
@@ -24,8 +22,10 @@ class _ProductsPageState extends State<ProductsPage> {
           IconButton(
             icon: Icon(Icons.favorite),
             onPressed: () {},
-          
-          ),SizedBox(width: 8.0,)
+          ),
+          SizedBox(
+            width: 8.0,
+          )
         ],
       ),
       body: Column(
