@@ -57,6 +57,9 @@ class _ProductCreateState extends State<ProductCreatePage> {
     return Column(
       children: <Widget>[
         TextFormField(
+          validator: (val) {
+            if (val.isEmpty) return 'Title cannot be empty';
+          },
           decoration: InputDecoration(labelText: "Title"),
           onSaved: (val) {
             setState(() {
@@ -65,6 +68,10 @@ class _ProductCreateState extends State<ProductCreatePage> {
           },
         ),
         TextFormField(
+          validator: (val) {
+            if (val.isEmpty || val.length < 5)
+              return 'Description is required and should be 5+ characters long';
+          },
           decoration: InputDecoration(labelText: "Description"),
           onSaved: (val) {
             setState(() {
@@ -74,6 +81,11 @@ class _ProductCreateState extends State<ProductCreatePage> {
           maxLines: 6,
         ),
         TextFormField(
+          validator: (val) {
+            if (val.isEmpty ||
+                !RegExp(r'^(?:[1-9]\d*|0)?(?:\.\d+)?$').hasMatch(val))
+              return 'Price is required and should be a number';
+          },
           decoration: InputDecoration(labelText: "Price"),
           onSaved: (val) {
             setState(() {
@@ -87,6 +99,7 @@ class _ProductCreateState extends State<ProductCreatePage> {
   }
 
   void _createProduct() {
+    if (!_formKey.currentState.validate()) return;
     _formKey.currentState.save();
     double price = double.parse(this.price);
     widget.addProduct({
