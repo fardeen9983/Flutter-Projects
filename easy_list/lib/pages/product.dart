@@ -1,3 +1,4 @@
+import 'package:easy_list/widgets/ui_elements/title_text.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -26,36 +27,13 @@ class ProductPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Image.asset(this.imageURL),
-              Container(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                  title,
-                  style: TextStyle(
-                      fontSize: 26.0,
-                      fontFamily: 'Oswald',
-                      fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: TitleText(
+                  text: title,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Union Square, San Fransisco",
-                    style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Text(
-                      '|',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                  Text(
-                    '\$' + price.toString(),
-                    style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
-                  )
-                ],
-              ),
+              _buildAddressPriceRow(),
               Container(
                 padding: EdgeInsets.all(10.0),
                 child: Text(
@@ -66,6 +44,29 @@ class ProductPage extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  Widget _buildAddressPriceRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          "Union Square, San Fransisco",
+          style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 5.0),
+          child: Text(
+            '|',
+            style: TextStyle(color: Colors.grey),
+          ),
+        ),
+        Text(
+          '\$' + price.toString(),
+          style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
+        )
+      ],
+    );
   }
 
   void _showWarningDialog(BuildContext context) {

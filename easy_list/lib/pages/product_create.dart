@@ -36,42 +36,52 @@ class _ProductCreateState extends State<ProductCreatePage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              TextField(
-                decoration: InputDecoration(labelText: "Title"),
-                controller: title,
-              ),
-              TextField(
-                decoration: InputDecoration(labelText: "Description"),
-                controller: desc,
-                maxLines: 6,
-              ),
-              TextField(
-                decoration: InputDecoration(labelText: "Price"),
-                controller: price,
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox( 
+              _buildTextFieldForm(),
+              SizedBox(
                 height: 10.0,
               ),
               RaisedButton(
                 color: Theme.of(context).accentColor,
                 textColor: Colors.white,
                 child: Text("Create"),
-                onPressed: () {
-                  String title = this.title.text;
-                  String desc = this.desc.text;
-                  double price = double.parse(this.price.text);
-                  widget.addProduct({
-                    'title': title,
-                    'desc': desc,
-                    'image': 'assets/food.jpg',
-                    'price': price
-                  });
-                  Navigator.pushNamed(context, "/");
-                },
+                onPressed: _createProduct,
               )
             ],
           ),
         ));
+  }
+
+  Widget _buildTextFieldForm() {
+    return Column(
+      children: <Widget>[
+        TextField(
+          decoration: InputDecoration(labelText: "Title"),
+          controller: title,
+        ),
+        TextField(
+          decoration: InputDecoration(labelText: "Description"),
+          controller: desc,
+          maxLines: 6,
+        ),
+        TextField(
+          decoration: InputDecoration(labelText: "Price"),
+          controller: price,
+          keyboardType: TextInputType.number,
+        ),
+      ],
+    );
+  }
+
+  void _createProduct() {
+    String title = this.title.text;
+    String desc = this.desc.text;
+    double price = double.parse(this.price.text);
+    widget.addProduct({
+      'title': title,
+      'desc': desc,
+      'image': 'assets/food.jpg',
+      'price': price
+    });
+    Navigator.pushNamed(context, "/products");
   }
 }

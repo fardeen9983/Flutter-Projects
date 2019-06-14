@@ -12,39 +12,47 @@ class ProductsAdminPage extends StatelessWidget {
         initialIndex: 0,
         length: 2,
         child: Scaffold(
-          appBar: AppBar(
-            title: Text("Managed Products"),
-            bottom: TabBar(
-              tabs: <Widget>[
-                Tab(
-                  icon: Icon(Icons.create),
-                  child: Text("Create Product"),
-                ),
-                Tab(
-                  icon: Icon(Icons.list),
-                  child: Text("My Product"),
-                )
-              ],
+            appBar: AppBar(
+              title: Text("Managed Products"),
+              bottom: TabBar(
+                tabs: <Widget>[
+                  Tab(
+                    icon: Icon(Icons.create),
+                    child: Text("Create Product"),
+                  ),
+                  Tab(
+                    icon: Icon(Icons.list),
+                    child: Text("My Product"),
+                  )
+                ],
+              ),
             ),
-          ),
-          body: TabBarView(
-            children: <Widget>[ProductCreatePage(addProduct: addProduct,), ProductListPage()],
-          ),
-          drawer: Drawer(
-            child: Column(
+            body: TabBarView(
               children: <Widget>[
-                AppBar(
-                  title: Text("Choose"),
-                  automaticallyImplyLeading: false,
+                ProductCreatePage(
+                  addProduct: addProduct,
                 ),
-                ListTile(
-                  leading: Icon(Icons.shop),
-                  title: Text("All Products"),
-                  onTap: () => Navigator.pushReplacementNamed(context, "/"),
-                )
+                ProductListPage()
               ],
             ),
+            drawer: _buildSideDrawer(context)));
+  }
+
+  Widget _buildSideDrawer(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          AppBar(
+            title: Text("Choose"),
+            automaticallyImplyLeading: false,
           ),
-        ));
+          ListTile(
+            leading: Icon(Icons.shop),
+            title: Text("All Products"),
+            onTap: () => Navigator.pushReplacementNamed(context, "/products"),
+          )
+        ],
+      ),
+    );
   }
 }

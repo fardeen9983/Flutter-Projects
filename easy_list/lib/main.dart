@@ -1,3 +1,4 @@
+import 'package:easy_list/pages/auth.dart';
 import 'package:easy_list/pages/product.dart';
 import 'package:easy_list/pages/products.dart';
 import 'package:easy_list/pages/products_admin.dart';
@@ -40,7 +41,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) => ProductsPage(_products),
+        '/': (BuildContext context) => AuthPage(),
+        "/products": (context) => ProductsPage(_products),
         "/admin": (context) => ProductsAdminPage(_addProduct, _deleteProduct),
       },
       onGenerateRoute: (RouteSettings settings) {
