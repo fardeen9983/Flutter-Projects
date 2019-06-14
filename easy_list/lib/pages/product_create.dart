@@ -13,7 +13,12 @@ class ProductCreatePage extends StatefulWidget {
 }
 
 class _ProductCreateState extends State<ProductCreatePage> {
-  String title, desc, price;
+  final Map<String, dynamic> _formData = {
+    'title': null,
+    'desc': null,
+    'price': null,
+    'image': 'assets/food.jpg'
+  };
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -32,25 +37,30 @@ class _ProductCreateState extends State<ProductCreatePage> {
     final double width = deviceWith > 550.0 ? 500 : deviceWith * 0.95;
     final double padding = deviceWith - width;
 
-    return Container(
-        margin: EdgeInsets.all(10.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: padding / 2),
-            children: <Widget>[
-              _buildTextFieldForm(),
-              SizedBox(
-                height: 10.0,
-              ),
-              RaisedButton(
-                textColor: Colors.white,
-                child: Text("Create"),
-                onPressed: _createProduct,
-              )
-            ],
-          ),
-        ));
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Container(
+          margin: EdgeInsets.all(10.0),
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: padding / 2),
+              children: <Widget>[
+                _buildTextFieldForm(),
+                SizedBox(
+                  height: 10.0,
+                ),
+                RaisedButton(
+                  textColor: Colors.white,
+                  child: Text("Create"),
+                  onPressed: _createProduct,
+                )
+              ],
+            ),
+          )),
+    );
   }
 
   Widget _buildTextFieldForm() {
@@ -62,9 +72,7 @@ class _ProductCreateState extends State<ProductCreatePage> {
           },
           decoration: InputDecoration(labelText: "Title"),
           onSaved: (val) {
-            setState(() {
-              title = val;
-            });
+            _formData["title"] = val;
           },
         ),
         TextFormField(
@@ -74,9 +82,7 @@ class _ProductCreateState extends State<ProductCreatePage> {
           },
           decoration: InputDecoration(labelText: "Description"),
           onSaved: (val) {
-            setState(() {
-              desc = val;
-            });
+            _formData["desc"] = val;
           },
           maxLines: 6,
         ),
@@ -88,9 +94,7 @@ class _ProductCreateState extends State<ProductCreatePage> {
           },
           decoration: InputDecoration(labelText: "Price"),
           onSaved: (val) {
-            setState(() {
-              price = val;
-            });
+            _formData["price"] = val;
           },
           keyboardType: TextInputType.number,
         ),
@@ -101,11 +105,11 @@ class _ProductCreateState extends State<ProductCreatePage> {
   void _createProduct() {
     if (!_formKey.currentState.validate()) return;
     _formKey.currentState.save();
-    double price = double.parse(this.price);
+    double price = double.parse(this._formData["price"]);
     widget.addProduct({
-      'title': title,
-      'desc': desc,
-      'image': 'assets/food.jpg',
+      'title': _formData["title"],
+      'desc': _formData["desc"],
+      'image': _formData["image"],
       'price': price
     });
     Navigator.pushNamed(context, "/products");
