@@ -10,8 +10,7 @@ class PagePainter extends CustomPainter {
     canvas.drawRRect(rect, paint);
 
     //Create another white rounded rectangle over the previous one with margin from left
-    paint = Paint()
-      ..color = Colors.white;
+    paint = Paint()..color = Colors.white;
     rect = RRect.fromLTRBR(6, 0, size.width, size.height, Radius.circular(8.0));
     canvas.drawRRect(rect, paint);
 
@@ -40,15 +39,13 @@ class PagePainter extends CustomPainter {
       ..strokeWidth = 3;
 
     var text =
-    TextSpan(text: "Hello",
-        style: TextStyle(color: Colors.purpleAccent, fontSize: 22.0));
+        TextSpan(text: "Hello", style: TextStyle(color: Colors.purpleAccent,fontSize: 22.0));
     var textPainter = TextPainter(textDirection: TextDirection.ltr, text: text);
     textPainter.layout();
 
     textPainter.paint(canvas, Offset(size.width * .14, size.height * .05));
 
-    text = TextSpan(text: "World",
-        style: TextStyle(color: Colors.purpleAccent, fontSize: 22.0));
+    text = TextSpan(text: "World", style: TextStyle(color: Colors.purpleAccent,fontSize: 22.0));
     textPainter.text = text;
     textPainter.layout();
     textPainter.paint(canvas, Offset(size.width * .14, size.height * .25));
