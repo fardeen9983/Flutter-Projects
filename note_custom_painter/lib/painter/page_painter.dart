@@ -27,6 +27,31 @@ class PagePainter extends CustomPainter {
         Offset(size.width, size.height * .6), paint);
     canvas.drawLine(Offset(6, size.height * .8),
         Offset(size.width, size.height * .8), paint);
+
+    //Create margin line
+    paint = Paint()
+      ..color = Colors.redAccent
+      ..strokeWidth = 2.5;
+    canvas.drawLine(Offset(size.width * .1, 0),
+        Offset(size.width * .1, size.height), paint);
+
+    paint = Paint()
+      ..color = Colors.purpleAccent
+      ..strokeWidth = 3;
+
+    var text =
+    TextSpan(text: "Hello",
+        style: TextStyle(color: Colors.purpleAccent, fontSize: 22.0));
+    var textPainter = TextPainter(textDirection: TextDirection.ltr, text: text);
+    textPainter.layout();
+
+    textPainter.paint(canvas, Offset(size.width * .14, size.height * .05));
+
+    text = TextSpan(text: "World",
+        style: TextStyle(color: Colors.purpleAccent, fontSize: 22.0));
+    textPainter.text = text;
+    textPainter.layout();
+    textPainter.paint(canvas, Offset(size.width * .14, size.height * .25));
   }
 
   @override
